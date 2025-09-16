@@ -1,7 +1,14 @@
 const tap = require("tap");
 const supertest = require("supertest");
 const app = require("../app");
-const server = supertest(app);
+
+// Helper to prepend /api to all paths
+const server = {
+  post: (path) => supertest(app).post(`/api${path}`),
+  get: (path) => supertest(app).get(`/api${path}`),
+  put: (path) => supertest(app).put(`/api${path}`),
+  delete: (path) => supertest(app).delete(`/api${path}`),
+};
 
 tap.test("POST /tasks", async (t) => {
   const newTask = {
