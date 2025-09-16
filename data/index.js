@@ -1,22 +1,28 @@
-import { readFile, writeFile } from "fs/promises";
+const { readFile, writeFile } = require("fs/promises");
+const path = require("path");
 
 let data = null;
 
-export async function loadData() {
+async function loadData() {
   if (!data) {
-    data = JSON.parse(await readFile(new URL("../task.json", import.meta.url)));
+    const filePath = path.join(__dirname, "../task.json");
+    data = JSON.parse(await readFile(filePath, "utf-8"));
   }
   return data;
 }
 
 // If you want persistence (optional)
-export async function saveData() {
-  await writeFile(
-    new URL("../task.json", import.meta.url),
-    JSON.stringify(data, null, 2)
-  );
+async function saveData() {
+  const filePath = path.join(__dirname, "../task.json");
+  await writeFile(filePath, JSON.stringify(data, null, 2));
 }
 
-export function getData() {
+function getData() {
   return data;
 }
+
+module.exports = {
+  loadData,
+  saveData,
+  getData,
+};

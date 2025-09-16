@@ -1,10 +1,14 @@
-import { Router } from "express";
-import {
+const { Router } = require("express");
+const {
   getAllTasks,
   getTaskById,
   getTasksByPriority,
-} from "../controllers/queries.js";
-import { createTask, deleteTask, updateTask } from "../controllers/commands.js";
+} = require("../controllers/queries.js");
+const {
+  createTask,
+  deleteTask,
+  updateTask,
+} = require("../controllers/commands.js");
 
 const router = Router();
 
@@ -22,4 +26,4 @@ router.put("/:id", updateTask);
 
 router.delete("/:id", deleteTask);
 
-export default router;
+module.exports = router;

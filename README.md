@@ -19,11 +19,24 @@ A RESTful API for managing tasks with features like priority levels, filtering, 
 ## Setup Instructions
 
 1. Clone the repository
-2. Install dependencies:
+2. If you don't have nvm installed, run:
+   ```bash
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+   # Then restart your terminal or run
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+   nvm --version # Should print nvm version
+   ```
+3. Install and use Node.js v18 with nvm:
+   ```bash
+   nvm install 18.20.2
+   nvm use 18.20.2
+   ```
+4. Install dependencies:
    ```bash
    npm install
    ```
-3. Start the server:
+5. Start the server:
    ```bash
    npm run dev
    ```

@@ -1,8 +1,9 @@
-import { getData, saveData } from "../data/index.js";
+const { getData, saveData } = require("../data");
 
 // POST /tasks - Create a new task
 const createTask = async (req, res) => {
   const { title, description, completed, priority } = req.body;
+  console.log("body details, title:", title, "description:", description);
   const missingFields = [];
   if (!title) missingFields.push("title");
   if (!description) missingFields.push("description");
@@ -109,4 +110,4 @@ const deleteTask = async (req, res) => {
   res.json({ message: "Task deleted" });
 };
 
-export { createTask, updateTask, deleteTask };
+module.exports = { createTask, updateTask, deleteTask };

@@ -1,6 +1,7 @@
-import express, { json, urlencoded } from "express";
-import tasksRouter from "./routes/index.js";
-import { loadData } from "./data/index.js";
+const express = require("express");
+const { json, urlencoded } = require("express");
+const tasksRouter = require("./routes/index.js");
+const { loadData } = require("./data/index.js");
 
 const app = express();
 const port = 3000;
@@ -10,7 +11,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 // Load initial data
-await loadData();
+loadData();
 
 // Routes
 app.use("/api/tasks", tasksRouter);
@@ -23,4 +24,4 @@ app.listen(port, (err) => {
   console.log(`Server is listening on ${port}`);
 });
 
-export default app;
+module.exports = app;

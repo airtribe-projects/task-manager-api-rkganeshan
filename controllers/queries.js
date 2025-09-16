@@ -1,4 +1,4 @@
-import { getData } from "../data/index.js";
+const { getData } = require("../data");
 
 // GET /tasks - Retrieve all tasks (supports filtering & sorting)
 const getAllTasks = (req, res) => {
@@ -55,4 +55,4 @@ const getTasksByPriority = (req, res) => {
   res.json(filtered);
 };
 
-export { getAllTasks, getTaskById, getTasksByPriority };
+module.exports = { getAllTasks, getTaskById, getTasksByPriority };
