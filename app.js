@@ -1,17 +1,26 @@
-const express = require('express');
+import express, { json, urlencoded } from "express";
+import tasksRouter from "./routes/index.js";
+import { loadData } from "./data/index.js";
+
 const app = express();
 const port = 3000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Middleware
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
+// Load initial data
+await loadData();
+
+// Routes
+app.use("/api/tasks", tasksRouter);
+
+// Start server
 app.listen(port, (err) => {
-    if (err) {
-        return console.log('Something bad happened', err);
-    }
-    console.log(`Server is listening on ${port}`);
+  if (err) {
+    return console.log("Something bad happened", err);
+  }
+  console.log(`Server is listening on ${port}`);
 });
 
-
-
-module.exports = app;
+export default app;
