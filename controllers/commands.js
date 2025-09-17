@@ -3,7 +3,6 @@ const { getData, saveData } = require("../data");
 // POST /tasks - Create a new task
 const createTask = async (req, res) => {
   const { title, description, completed, priority } = req.body;
-  console.log("body details, title:", title, "description:", description);
   const missingFields = [];
   if (!title) missingFields.push("title");
   if (!description) missingFields.push("description");
@@ -47,8 +46,14 @@ const createTask = async (req, res) => {
   };
 
   tasks.push(newTask);
-  await saveData({ tasks });
-  res.status(201).json(newTask);
+  try {
+    await saveData({ tasks });
+    res.status(201).json(newTask);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Failed to save task", error: err.message });
+  }
 };
 
 // PUT /tasks/:id - Update a task by ID
@@ -89,9 +94,14 @@ const updateTask = async (req, res) => {
   }
 
   tasks[taskIndex] = updatedTask;
-  await saveData({ tasks });
-
-  return res.json(updatedTask);
+  try {
+    await saveData({ tasks });
+    return res.json(updatedTask);
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Failed to update task", error: err.message });
+  }
 };
 
 // DELETE /tasks/:id - Delete a task by ID
@@ -106,8 +116,14 @@ const deleteTask = async (req, res) => {
   }
 
   tasks.splice(taskIndex, 1);
-  await saveData({ tasks });
-  res.json({ message: "Task deleted" });
+  try {
+    await saveData({ tasks });
+    res.json({ message: "Task deleted" });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: "Failed to delete task", error: err.message });
+  }
 };
 
 module.exports = { createTask, updateTask, deleteTask };

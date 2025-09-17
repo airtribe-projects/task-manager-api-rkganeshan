@@ -11,7 +11,6 @@ async function loadData() {
   return data;
 }
 
-// If you want persistence (optional)
 async function saveData() {
   const filePath = path.join(__dirname, "../task.json");
   await writeFile(filePath, JSON.stringify(data, null, 2));

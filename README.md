@@ -156,3 +156,17 @@ You can test the API using:
 3. Any HTTP client library in your application
 
 Make sure to set the `Content-Type: application/json` header when sending POST or PUT requests.
+
+## ⚠️ Important Note About Testing
+
+**After running the test suite, you must discard or reset any changes made to `task.json`.**
+
+The tests will modify `task.json` (your mock database), and these changes will persist. If you do not restore `task.json` to its original state, subsequent tests may fail or behave unexpectedly.
+
+- Always restore `task.json` after running tests to ensure consistent results.
+- You can use version control (e.g., `git checkout -- task.json`) or manually reset the file.
+
+**Also, make sure the app is NOT running on any localhost port while running the tests.**
+
+- If the app is running, the test suite may fail due to port conflicts or unexpected behavior.
+- Stop any running server before executing the tests.
